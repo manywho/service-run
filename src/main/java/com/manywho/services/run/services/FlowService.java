@@ -1,7 +1,6 @@
 package com.manywho.services.run.services;
 
 import com.manywho.sdk.RunService;
-import com.manywho.sdk.entities.draw.flow.FlowId;
 import com.manywho.sdk.entities.run.EngineInitializationRequest;
 import com.manywho.sdk.entities.run.EngineInitializationResponse;
 import com.manywho.sdk.entities.run.EngineInvokeRequest;
@@ -20,6 +19,9 @@ public class FlowService {
     public EngineInvokeResponse startFlow(EngineStartFlowRequest startFlowRequest, String tenantId) throws Exception {
         EngineInitializationResponse engineInitializationResponse = this.runService.initializeFlow(null, null, tenantId, new EngineInitializationRequest() {{
             setFlowId(startFlowRequest.getFlowId());
+            if (startFlowRequest.hasInputs()) {
+                setInputs(startFlowRequest.getInputs());
+            }
         }});
 
         AuthenticatedWho authenticatedWho = null;
