@@ -1,6 +1,7 @@
 package com.manywho.services.run.services;
 
 import com.manywho.sdk.RunService;
+import com.manywho.sdk.entities.draw.flow.FlowResponseCollection;
 import com.manywho.sdk.entities.run.EngineInitializationResponse;
 import com.manywho.sdk.entities.run.EngineInvokeRequest;
 import com.manywho.sdk.entities.run.EngineInvokeResponse;
@@ -13,6 +14,7 @@ import com.manywho.services.run.entities.EngineStartFlowRequest;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
 public class FlowService {
     @Inject
@@ -86,5 +88,13 @@ public class FlowService {
         engineInvokeRequest.setStateToken(engineInitializationResponse.getStateToken());
 
         return this.runService.executeFlow(null, authenticatedWho, tenantId, engineInvokeRequest);
+    }
+
+    public FlowResponseCollection getFlows(String tenantId, String filter) throws Exception {
+        if (StringUtils.isEmpty(filter)) {
+            return this.runService.loadFlows(null, null, tenantId);
+        }
+
+        return this.runService.loadFlows(null, null, tenantId, filter);
     }
 }
