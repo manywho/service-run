@@ -5,6 +5,8 @@ import com.manywho.services.run.entities.EngineStartFlowRequest;
 import com.manywho.services.run.services.FlowService;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 
 @Path("/flow")
@@ -16,7 +18,7 @@ public class FlowController {
 
     @Path("/start")
     @POST
-    public EngineInvokeResponse startFlow(EngineStartFlowRequest engineStartFlowRequest, @HeaderParam("ManyWhoTenant") String tenantId) throws Exception {
+    public EngineInvokeResponse startFlow(@Valid EngineStartFlowRequest engineStartFlowRequest, @NotNull @HeaderParam("ManyWhoTenant") String tenantId) throws Exception {
         return this.flowService.startFlow(engineStartFlowRequest, tenantId);
     }
 }

@@ -1,9 +1,13 @@
 package com.manywho.services.run.entities;
 
 import com.manywho.sdk.entities.run.EngineInitializationRequest;
+import com.manywho.sdk.entities.run.Request;
 import com.manywho.sdk.entities.security.AuthenticationCredentials;
 
-public class EngineStartFlowRequest extends EngineInitializationRequest {
+import javax.validation.constraints.NotNull;
+
+public class EngineStartFlowRequest extends EngineInitializationRequest implements Request {
+    @NotNull
     private AuthenticationCredentials authenticationCredentials;
 
     public AuthenticationCredentials getAuthenticationCredentials() {

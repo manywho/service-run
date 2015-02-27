@@ -10,6 +10,7 @@ import com.manywho.sdk.entities.security.AuthenticatedWho;
 import com.manywho.sdk.enums.InvokeType;
 import com.manywho.sdk.enums.StatusCode;
 import com.manywho.services.run.entities.EngineStartFlowRequest;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 
@@ -24,7 +25,7 @@ public class FlowService {
             throw new Exception("The StartFlowRequest object cannot be null.");
         }
 
-        if (tenantId == null || tenantId.isEmpty() == true) {
+        if (tenantId == null || tenantId.isEmpty()) {
             throw new Exception("The TenantId cannot be null or blank.");
         }
 
@@ -32,11 +33,11 @@ public class FlowService {
             throw new Exception("The StartFlowRequest.FlowId parameter cannot be null.");
         }
 
-        if (startFlowRequest.getFlowId().getId() == null || startFlowRequest.getFlowId().getId().isEmpty() == true) {
+        if (startFlowRequest.getFlowId().getId() == null || startFlowRequest.getFlowId().getId().isEmpty()) {
             throw new Exception("The StartFlowRequest.FlowId.Id parameter cannot be null or blank.");
         }
 
-        if (startFlowRequest.getFlowId().getVersionId() == null || startFlowRequest.getFlowId().getVersionId().isEmpty() == true) {
+        if (startFlowRequest.getFlowId().getVersionId() == null || startFlowRequest.getFlowId().getVersionId().isEmpty()) {
             FlowResponse flowResponse = this.runService.loadFlow(null, null, tenantId, startFlowRequest.getFlowId().getId());
 
             if (flowResponse == null) {
@@ -49,7 +50,7 @@ public class FlowService {
         EngineInitializationResponse engineInitializationResponse = this.runService.initializeFlow(null, null, tenantId, startFlowRequest);
 
         if (engineInitializationResponse.getStatusCode().equalsIgnoreCase(StatusCode.Unauthorized.toString())) {
-            if (startFlowRequest.hasAuthenticationCredentials() == false) {
+            if (!startFlowRequest.hasAuthenticationCredentials()) {
                 throw new Exception("The Flow is requesting authentication and credentials have not been provided.");
             }
 
@@ -59,7 +60,7 @@ public class FlowService {
                 throw new Exception("The authentication credentials provided did not login successfully for an unknown reason.");
             }
 
-            if (authenticatedWho.getManyWhoUserId() == null || authenticatedWho.getManyWhoUserId().isEmpty() == true) {
+            if (authenticatedWho.getManyWhoUserId() == null || authenticatedWho.getManyWhoUserId().isEmpty()) {
                 throw new Exception("The authentication credentials provided did not login successfully.");
             }
 
