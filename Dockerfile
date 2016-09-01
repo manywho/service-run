@@ -1,9 +1,5 @@
-FROM jeanblanchard/java:8
+FROM maven:onbuild-alpine
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "run-1.0-SNAPSHOT.jar"]
-
-WORKDIR /app
-
-ADD . ./
+CMD ["java", "-Xmx300m", "-jar", "/usr/src/app/target/run-1.0-SNAPSHOT.jar"]

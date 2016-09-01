@@ -1,0 +1,7 @@
+{
+  "name": "ManyWho Run Service",
+  "description": "A plugin that allows your ManyWho Flows to integrate with the ManyWho Run API",
+  "repository": "https://github.com/manywho/service-run",
+  "logo": "https://s3.amazonaws.com/manywho-service-assets/icons/service-run.png",
+  "keywords": ["manywho", "run", "plugin", "workflow"]
+}
